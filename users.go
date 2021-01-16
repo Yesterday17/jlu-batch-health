@@ -24,7 +24,7 @@ func LoadUsers() error {
 			if err != nil {
 				return err
 			}
-			Users.Store(u.ChatId, u)
+			Users.Store(u.Username, u)
 		}
 	}
 	return nil

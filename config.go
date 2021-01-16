@@ -13,14 +13,15 @@ type HealthConfig struct {
 	Token string `json:"token"`
 	Proxy string `json:"proxy"`
 
-	Owner        string `json:"owner"`
+	Owner        int64  `json:"owner"`
 	AccountsPath string `json:"accounts_path"`
 	MaxUsers     uint   `json:"max_users"`
+	MaxRetry     int    `json:"max_retry"`
 }
 
 var Config HealthConfig
 
-func LoadConfig(token, proxy, owner, accountsPath string, maxUsers uint) {
+func LoadConfig(token, proxy string, owner int64, accountsPath string, maxUsers uint) {
 	var config HealthConfig
 	data, err := ioutil.ReadFile("config.json")
 	if err == nil {
@@ -34,7 +35,7 @@ func LoadConfig(token, proxy, owner, accountsPath string, maxUsers uint) {
 			if proxy == "" {
 				proxy = config.Proxy
 			}
-			if owner == "" {
+			if owner == 0 {
 				owner = config.Owner
 			}
 			if accountsPath == "" {
@@ -65,8 +66,8 @@ func LoadConfig(token, proxy, owner, accountsPath string, maxUsers uint) {
 		log.Panic(err.Error())
 	}
 
-	if owner == "" {
-		log.Println("未设置拥有者 ID，管理功能将不可用。")
+	if owner == 0 {
+		log.Panic("未设置拥有者 ID。")
 	}
 
 	Config.Token = token
@@ -74,6 +75,10 @@ func LoadConfig(token, proxy, owner, accountsPath string, maxUsers uint) {
 	Config.AccountsPath = accountsPath
 	Config.Owner = owner
 	Config.MaxUsers = maxUsers
+
+	if config.MaxRetry == 0 {
+		config.MaxRetry = 8
+	}
 
 	err = SaveConfig()
 	if err != nil {
