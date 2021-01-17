@@ -16,11 +16,11 @@ import (
 )
 
 type User struct {
-	Username string            `json:"username"`
-	Password string            `json:"password"`
-	Fields   map[string]string `json:"fields"`
-	Mode     ReportMode        `json:"mode"`
-	Jar      HealthJar         `json:"-"`
+	DisplayName string            `json:"name"`
+	Username    string            `json:"username"`
+	Password    string            `json:"password"`
+	Fields      map[string]string `json:"fields"`
+	Jar         HealthJar         `json:"-"`
 }
 
 func NewUser(path string) (*User, error) {

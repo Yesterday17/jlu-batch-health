@@ -15,7 +15,7 @@ func main() {
 	flag.StringVar(&token, "token", "", "Telegram Bot Token")
 	flag.StringVar(&proxy, "proxy", "", "http 代理地址")
 	flag.Int64Var(&owner, "owner", 0, "Bot 拥有者 ChatID")
-	flag.StringVar(&accountsPath, "accounts-path", "./accounts/", "存储用户帐户的路径")
+	flag.StringVar(&accountsPath, "accounts", "./accounts.json", "存储用户帐户的路径")
 	flag.UintVar(&maxUsers, "max-users", 100, "最大用户数量")
 	flag.Parse()
 
@@ -42,7 +42,7 @@ func main() {
 		}
 
 		u := user.(*User)
-		t := u.Mode.GetReportTime()
+		t := Config.Mode.GetReportTime()
 		if t == ReportTimeUnknown {
 			_, _ = b.Reply(m, "不在打卡时间段内。")
 			return

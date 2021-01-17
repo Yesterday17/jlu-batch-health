@@ -14,7 +14,7 @@ type ReportTime uint8
 func ReportAll(b *tb.Bot, m ReportMode, msg string) {
 	Users.Range(func(key, value interface{}) bool {
 		user := value.(*User)
-		if m == user.Mode {
+		if m == Config.Mode {
 			if msg != "" {
 				_, _ = b.Send(tb.ChatID(Config.Owner), msg)
 			}

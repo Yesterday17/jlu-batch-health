@@ -13,10 +13,11 @@ type HealthConfig struct {
 	Token string `json:"token"`
 	Proxy string `json:"proxy"`
 
-	Owner        int64  `json:"owner"`
-	AccountsPath string `json:"accounts_path"`
-	MaxUsers     uint   `json:"max_users"`
-	MaxRetry     int    `json:"max_retry"`
+	Owner        int64      `json:"owner"`
+	AccountsPath string     `json:"accounts_path"`
+	MaxUsers     uint       `json:"max_users"`
+	MaxRetry     int        `json:"max_retry"`
+	Mode         ReportMode `json:"mode"`
 }
 
 var Config HealthConfig
