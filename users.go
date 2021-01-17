@@ -6,7 +6,6 @@ import (
 	"sync"
 )
 
-// sync map[int64]*User
 var Users sync.Map
 
 func LoadUsers() error {
@@ -22,6 +21,9 @@ func LoadUsers() error {
 	}
 
 	for _, u := range users {
+		if u.Fields == nil {
+			u.Fields = map[string]string{}
+		}
 		Users.Store(u.Username, u)
 	}
 	return nil
