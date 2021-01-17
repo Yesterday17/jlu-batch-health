@@ -1,9 +1,8 @@
 package main
 
 import (
+	"encoding/json"
 	"io/ioutil"
-	"path"
-	"strings"
 	"sync"
 )
 
@@ -11,21 +10,19 @@ import (
 var Users sync.Map
 
 func LoadUsers() error {
-	info, err := ioutil.ReadDir(Config.AccountsPath)
+	data, err := ioutil.ReadFile(Config.AccountsPath)
 	if err != nil {
 		return err
 	}
 
-	for _, i := range info {
-		n := i.Name()
-		if !i.IsDir() && strings.HasSuffix(n, ".json") {
-			p := path.Join(Config.AccountsPath, n)
-			u, err := NewUser(p)
-			if err != nil {
-				return err
-			}
-			Users.Store(u.Username, u)
-		}
+	var users []User
+	err = json.Unmarshal(data, &users)
+	if err != nil {
+		return err
+	}
+
+	for _, u := range users {
+		Users.Store(u.Username, u)
 	}
 	return nil
 }

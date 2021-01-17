@@ -31,9 +31,9 @@ func Report(bot *tb.Bot, t ReportTime, u *User) {
 
 	for i := 0; i < Config.MaxRetry; i++ {
 		if i == 0 {
-			_, _ = bot.Send(tb.ChatID(Config.Owner), fmt.Sprintf("%s 开始进行%s……", u.Username, t.Name()))
+			_, _ = bot.Send(tb.ChatID(Config.Owner), fmt.Sprintf("%s 开始进行%s……", u.DisplayName, t.Name()))
 		} else {
-			_, _ = bot.Send(tb.ChatID(Config.Owner), fmt.Sprintf("%s 开始进行第 %d/%d 次%s重试……", u.Username, i, Config.MaxRetry-1, t.Name()))
+			_, _ = bot.Send(tb.ChatID(Config.Owner), fmt.Sprintf("%s 开始进行第 %d/%d 次%s重试……", u.DisplayName, i, Config.MaxRetry-1, t.Name()))
 		}
 
 		msg, _ = bot.Send(tb.ChatID(Config.Owner), "登录中……")
