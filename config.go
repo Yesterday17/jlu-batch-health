@@ -71,15 +71,17 @@ func LoadConfig(token, proxy string, owner int64, accountsPath string, maxUsers 
 		log.Panic("未设置拥有者 ID。")
 	}
 
+	if config.MaxRetry == 0 {
+		config.MaxRetry = 8
+	}
+
 	Config.Token = token
 	Config.Proxy = proxy
 	Config.AccountsPath = accountsPath
 	Config.Owner = owner
 	Config.MaxUsers = maxUsers
-
-	if config.MaxRetry == 0 {
-		config.MaxRetry = 8
-	}
+	Config.MaxRetry = config.MaxRetry
+	Config.Mode = config.Mode
 
 	err = SaveConfig()
 	if err != nil {

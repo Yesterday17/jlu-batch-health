@@ -24,7 +24,8 @@ func LoadUsers() error {
 		if u.Fields == nil {
 			u.Fields = map[string]string{}
 		}
-		Users.Store(u.Username, u)
+		u.Jar = NewHealthJar()
+		Users.Store(u.Username, &u)
 	}
 	return nil
 }

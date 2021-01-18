@@ -23,24 +23,6 @@ type User struct {
 	Jar         HealthJar         `json:"-"`
 }
 
-func NewUser(path string) (*User, error) {
-	data, err := ioutil.ReadFile(path)
-	if err != nil {
-		return nil, err
-	}
-
-	var u User
-	err = json.Unmarshal(data, &u)
-	if err != nil {
-		return nil, err
-	}
-
-	u.Jar = NewHealthJar()
-
-	u.Save()
-	return &u, nil
-}
-
 func (u *User) Save() {
 	data, _ := json.Marshal(*u)
 
