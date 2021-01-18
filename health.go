@@ -19,7 +19,7 @@ func ReportAll(b *tb.Bot, m ReportMode, msg string) {
 				_, _ = b.Send(tb.ChatID(Config.Owner), msg)
 			}
 			Report(b, m.GetReportTime(), user)
-			time.Sleep(3 * time.Minute)
+			time.Sleep(30 * time.Second)
 		}
 		return true
 	})

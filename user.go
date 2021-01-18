@@ -64,6 +64,15 @@ func (u *User) Login() error {
 		return err
 	}
 	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+	if strings.Contains(string(body), "INVALID_PASSWORD") {
+		return errors.New("密码错误！")
+	}
+
+	_ = body
 	if resp.StatusCode != 200 {
 		return fmt.Errorf("登录状态 %d", resp.StatusCode)
 	}

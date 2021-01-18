@@ -21,11 +21,12 @@ func LoadUsers() error {
 	}
 
 	for _, u := range users {
-		if u.Fields == nil {
-			u.Fields = map[string]string{}
+		user := u
+		if user.Fields == nil {
+			user.Fields = map[string]string{}
 		}
-		u.Jar = NewHealthJar()
-		Users.Store(u.Username, &u)
+		user.Jar = NewHealthJar()
+		Users.Store(u.Username, &user)
 	}
 	return nil
 }
