@@ -51,5 +51,9 @@ func main() {
 		go Report(b, t, u)
 	})
 
+	b.Handle("/reportall", func(m *tb.Message) {
+		ReportAll(b, ReportModeLeaveSchool, "")
+	})
+
 	b.Start()
 }
